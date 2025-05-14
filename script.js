@@ -39,10 +39,7 @@ buttonsContainer.addEventListener('click', (event) => {
             // if either a or b (or both) are unassigned, throw an error
             if (operation) {
                 if (a && b) {
-                    a = String(operate(operation, a, b));
-                    b = '';
-                    operation = clickedText;
-                    display.textContent = a + clickedText;
+                    assignValues(clickedText);
                 }
                 else {
                     console.error('Cannot perform operation without valid numbers');
@@ -60,10 +57,7 @@ buttonsContainer.addEventListener('click', (event) => {
             break;
         case 'equals':
             if (operation && a && b) {
-                a = String(operate(operation, a, b));
-                b = '';
-                operation = '';
-                display.textContent = a;
+                assignValues();
             }
             else {
                 console.error('Operation entered is invalid');
@@ -117,6 +111,19 @@ function clear() {
     operation = '';
 }
 
+function assignValues(op = '') {
+    a = operate(operation, a, b);
+    if (Number.isNaN(a)) {
+        clear();
+        return;
+    }
+    a = String(a);
+    b = '';
+    
+    operation = op;
+    display.textContent = a + op;
+}
+
 function operate(operator, a, b) {
     a = Number(a);
     b = Number(b);
@@ -132,10 +139,14 @@ function operate(operator, a, b) {
             result = multiply(a, b);
             break;
         case '/':
+            if (b === 0) {
+                alert('Invalid operation: division by zero');
+                return NaN;
+            }
             result = divide(a, b);
             break;
     }
-    
+
     if (Number.isInteger(result)) {
         return result;
     }
