@@ -120,14 +120,31 @@ function clear() {
 function operate(operator, a, b) {
     a = Number(a);
     b = Number(b);
+    let result;
     switch (operator) {
         case '+':
-            return add(a, b);
+            result = add(a, b);
+            break;
         case '-':
-            return subtract(a, b);
+            result = subtract(a, b);
+            break;
         case 'x':
-            return multiply(a, b);
+            result = multiply(a, b);
+            break;
         case '/':
-            return divide(a, b);
+            result = divide(a, b);
+            break;
     }
+    
+    if (Number.isInteger(result)) {
+        return result;
+    }
+
+    // remove trailing zeros
+    result = result.toFixed(5);
+    let i = result.length - 1;
+    while (i >= 0 && result[i] == '0') {
+        i--;
+    }
+    return result.split('').slice(0, i + 1).join('');
 }
