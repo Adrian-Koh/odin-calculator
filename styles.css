@@ -6,6 +6,9 @@
     width: 400px;
     gap: 20px;
     padding: 20px;
+    border: solid 1px rgb(9, 51, 75);
+    border-radius: 5px;
+    background-color: rgb(18, 84, 122);
 }
 
 body {
@@ -17,7 +20,7 @@ body {
     display: flex;
     height: 80px;
     width: 400px;
-    border: solid 1px black;
+    border: solid 1px white;
     box-sizing: border-box;
     padding: 10px;
 }
@@ -34,21 +37,26 @@ body {
     width: 300px;
     height: 60px;
     padding: 10px;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 36px;
     text-align: right;
+    color: white;
     vertical-align: middle;
 }
 
 .display-buttons {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
     height: 60px;
     width: 80px;
+    gap: 5px;
 }
 
 .display-buttons button {
-    width: 80px;
+    width: 60px;
+    height: 30px;
+    font-size: 20px;
 }
 
 .buttons-container {
@@ -69,4 +77,17 @@ body {
     width: 80px;
     height: 80px;
     font-size: inherit;
+}
+
+button, .display-container {
+    border-radius: 10px;
+}
+
+.display-buttons button {
+    border-radius: 5px;
+}
+
+button {
+    background-color: rgb(52, 161, 219);
+    color: white;
 }
