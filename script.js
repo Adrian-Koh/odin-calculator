@@ -30,17 +30,35 @@ buttonsContainer.addEventListener('click', (event) => {
             appendOperator(clickedText);
             break;
         case 'equals':
-            if (operation && a && b) {
-                assignValues();
-                equalsHit = true;
-            }
-            else {
-                console.error('Operation entered is invalid' + display.textContent);
-            }
+            handleEquals();
             break;
         case 'period':
             appendPeriod();
             break;
+    }
+});
+
+const DIGITS = '0123456789';
+const OPERATORS = '+-*/'
+document.addEventListener('keydown', (event) => {
+    const key = event.key;
+    if (DIGITS.includes(key)) {
+        appendDigit(key);
+    }
+    else if (OPERATORS.includes(key)) {
+        appendOperator(key);
+    }
+    else if (key === '=' || key === 'Enter') {
+        handleEquals();
+    }
+    else if (key === '.') {
+        appendPeriod();
+    }
+    else if (key === 'Backspace') {
+        backspace();
+    }
+    else if (key === 'Escape') {
+        clear();
     }
 });
 
@@ -99,6 +117,16 @@ function appendOperator(op) {
         }
         operation = op;
         display.textContent += op;
+    }
+}
+
+function handleEquals() {
+    if (operation && a && b) {
+        assignValues();
+        equalsHit = true;
+    }
+    else {
+        console.error('Operation entered is invalid: ' + display.textContent);
     }
 }
 
