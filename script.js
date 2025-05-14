@@ -5,6 +5,7 @@ const displayButtons = document.querySelector('.display-buttons');
 let a = '';
 let b = '';
 let operation = '';
+let equalsHit = false;
 
 displayButtons.addEventListener('click', (event) => {
     let target = event.target;
@@ -31,9 +32,10 @@ buttonsContainer.addEventListener('click', (event) => {
         case 'equals':
             if (operation && a && b) {
                 assignValues();
+                equalsHit = true;
             }
             else {
-                console.error('Operation entered is invalid');
+                console.error('Operation entered is invalid' + display.textContent);
             }
             break;
         case 'period':
@@ -62,7 +64,14 @@ function clear() {
 function appendDigit(digit) {
     // if operation is empty, append number to a
     if (!operation) {
-        a += digit;
+        if (equalsHit) {
+            a = digit;
+            equalsHit = false;
+            display.textContent = '';
+        }
+        else {
+            a += digit;
+        }
     }
     // if a and operation are assigned, append number to b
     if (a && operation) {
