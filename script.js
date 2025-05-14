@@ -1,4 +1,4 @@
-const display = document.querySelector('.display');
+const display = document.querySelector('.display-text');
 const buttons = document.querySelector('.buttons-container');
 
 let a = NaN;
