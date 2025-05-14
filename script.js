@@ -69,6 +69,34 @@ buttonsContainer.addEventListener('click', (event) => {
                 console.error('Operation entered is invalid');
             }
             break;
+        case 'period':
+            if (!a) {
+                a = '0.';
+                display.textContent = a;
+            }
+            else if (operation && !b) {
+                b = '0.';
+                display.textContent += b;
+            }
+            else if (a && !operation) {
+                if (a.includes('.')) {
+                    console.error('Cannot enter period, current number is already a decimal');
+                }
+                else {
+                    a += '.';
+                    display.textContent += '.';
+                }
+            }
+            else if (a && operation && b) {
+                if (b.includes('.')) {
+                    console.error('Cannot enter period, current number is already a decimal');
+                }
+                else {
+                    b += '.';
+                    display.textContent += '.';
+                }
+            }
+            break;
     }
 });
 
