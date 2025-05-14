@@ -21,15 +21,19 @@ buttonsContainer.addEventListener('click', (event) => {
     const clickedText = target.textContent;
     switch (target.className) {
         case 'number':
+            // if operation is empty, append number to a
             if (!operation) {
                 a += clickedText;
             }
+            // if a and operation are assigned, append number to b
             if (a && operation) {
                 b += clickedText;
             }
             display.textContent += clickedText;
             break;
         case 'operator':
+            // if operation is assigned, compute the operation of a and b if they are assigned
+            // if either a or b (or both) are unassigned, throw an error
             if (operation) {
                 if (a && b) {
                     a = String(operate(operation, a, b));
@@ -42,7 +46,7 @@ buttonsContainer.addEventListener('click', (event) => {
                     return;
                 }
             }
-            else {
+            else {  // if a is unassigned and an operator is clicked on, throw an error
                 if (!a) {
                     console.error('Cannot perform operation without number before operator');
                     return;
