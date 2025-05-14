@@ -20,40 +20,13 @@ displayButtons.addEventListener('click', (event) => {
 
 buttonsContainer.addEventListener('click', (event) => {
     let target = event.target;
-    let result;
     const clickedText = target.textContent;
     switch (target.className) {
         case 'number':
-            // if operation is empty, append number to a
-            if (!operation) {
-                a += clickedText;
-            }
-            // if a and operation are assigned, append number to b
-            if (a && operation) {
-                b += clickedText;
-            }
-            display.textContent += clickedText;
+            appendDigit(clickedText);
             break;
         case 'operator':
-            // if operation is assigned, compute the operation of a and b if they are assigned
-            // if either a or b (or both) are unassigned, throw an error
-            if (operation) {
-                if (a && b) {
-                    assignValues(clickedText);
-                }
-                else {
-                    console.error('Cannot perform operation without valid numbers');
-                    return;
-                }
-            }
-            else {  // if a is unassigned and an operator is clicked on, throw an error
-                if (!a) {
-                    console.error('Cannot perform operation without number before operator');
-                    return;
-                }
-                operation = clickedText;
-                display.textContent += clickedText;
-            }
+            appendOperator(clickedText);
             break;
         case 'equals':
             if (operation && a && b) {
@@ -64,32 +37,7 @@ buttonsContainer.addEventListener('click', (event) => {
             }
             break;
         case 'period':
-            if (!a) {
-                a = '0.';
-                display.textContent = a;
-            }
-            else if (operation && !b) {
-                b = '0.';
-                display.textContent += b;
-            }
-            else if (a && !operation) {
-                if (a.includes('.')) {
-                    console.error('Cannot enter period, current number is already a decimal');
-                }
-                else {
-                    a += '.';
-                    display.textContent += '.';
-                }
-            }
-            else if (a && operation && b) {
-                if (b.includes('.')) {
-                    console.error('Cannot enter period, current number is already a decimal');
-                }
-                else {
-                    b += '.';
-                    display.textContent += '.';
-                }
-            }
+            appendPeriod();
             break;
     }
 });
@@ -109,6 +57,69 @@ function clear() {
     a = '';
     b = '';
     operation = '';
+}
+
+function appendDigit(digit) {
+    // if operation is empty, append number to a
+    if (!operation) {
+        a += digit;
+    }
+    // if a and operation are assigned, append number to b
+    if (a && operation) {
+        b += digit;
+    }
+    display.textContent += digit;
+}
+
+function appendOperator(op) {
+    // if operation is assigned, compute the operation of a and b if they are assigned
+    // if either a or b (or both) are unassigned, throw an error
+    if (operation) {
+        if (a && b) {
+            assignValues(op);
+        }
+        else {
+            console.error('Cannot perform operation without valid numbers');
+            return;
+        }
+    }
+    else {  // if a is unassigned and an operator is clicked on, throw an error
+        if (!a) {
+            console.error('Cannot perform operation without number before operator');
+            return;
+        }
+        operation = op;
+        display.textContent += op;
+    }
+}
+
+function appendPeriod() {
+    if (!a) {
+        a = '0.';
+        display.textContent = a;
+    }
+    else if (operation && !b) {
+        b = '0.';
+        display.textContent += b;
+    }
+    else if (a && !operation) {
+        if (a.includes('.')) {
+            console.error('Cannot enter period, current number is already a decimal');
+        }
+        else {
+            a += '.';
+            display.textContent += '.';
+        }
+    }
+    else if (a && operation && b) {
+        if (b.includes('.')) {
+            console.error('Cannot enter period, current number is already a decimal');
+        }
+        else {
+            b += '.';
+            display.textContent += '.';
+        }
+    }
 }
 
 function assignValues(op = '') {
