@@ -12,6 +12,9 @@ displayButtons.addEventListener('click', (event) => {
         case 'backspace':
             backspace();
             break;
+        case 'clear':
+            clear();
+            break;
     }
 });
 
@@ -56,6 +59,15 @@ buttonsContainer.addEventListener('click', (event) => {
             }
             break;
         case 'equals':
+            if (operation && a && b) {
+                a = String(operate(operation, a, b));
+                b = '';
+                operation = '';
+                display.textContent = a;
+            }
+            else {
+                console.error('Operation entered is invalid');
+            }
             break;
     }
 });
@@ -68,6 +80,13 @@ let divide = (a, b) => a / b;
 function backspace() {
     const displayText = display.textContent;
     display.textContent = displayText.split('').slice(0, displayText.length - 1).join('');
+}
+
+function clear() {
+    display.textContent = '';
+    a = '';
+    b = '';
+    operation = '';
 }
 
 function operate(operator, a, b) {
