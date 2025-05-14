@@ -1,0 +1,27 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    font-size: 48px;
+    width: 500px;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+}
+
+.display {
+    height: 100px;
+    border: solid 1px black;
+}
+
+.buttons-container {
+    align-self: center;
+}
+
+.buttons-container button {
+    width: 100px;
+    height: 100px;
+    font-size: inherit;
+}
